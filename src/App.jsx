@@ -6,13 +6,27 @@ import { Footer } from './components/Footer'
 import './App.css'
 
 function App() {
-  const [activeMenu, setActiveMenu] = useState('presentacion')
+  const [activeMenu, setActiveMenu] = useState('presentacion');
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const handleMenuChange = (menuId) => {
+    setActiveMenu(menuId);
+  };
+
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   return (
     <div className="app-container">
-      <Header />
+      <Header isCollapsed={isCollapsed} />
       <div className="app-body">
-        <Sidebar activeMenu={activeMenu} onMenuChange={setActiveMenu} />
+        <Sidebar 
+          activeMenu={activeMenu} 
+          onMenuChange={handleMenuChange} 
+          isCollapsed={isCollapsed} 
+          onToggle={toggleSidebar} 
+        />
         <MainContent activeMenu={activeMenu} />
       </div>
       <Footer />

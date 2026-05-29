@@ -1,7 +1,7 @@
 import colegioImg from '../assets/colegio.jpeg';
 import insignia from '../assets/insignia.jpeg';
 
-export function Header() {
+export function Header({ isCollapsed }) {
   return (
     <header className="header">
       <div className="header-container">
@@ -18,6 +18,11 @@ export function Header() {
             alt="Insignia Institucional"
             className="header-logo"
           />
+        </div>
+        <div className="marquee-container">
+          <h1 className="marquee-text">
+            BIENVENIDO HERMILIO VALDIZAN
+          </h1>
         </div>
       </div>
     </header>

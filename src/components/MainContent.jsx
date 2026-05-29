@@ -5,30 +5,88 @@ import subdirectorPlacidoImg from '../assets/subdirector_Placido.jpeg';
 import corte1Img from '../assets/corte1.jpeg';
 import corte2Img from '../assets/corte2.jpeg';
 import corte3Img from '../assets/corte3.jpeg';
+import corte4Img from '../assets/corte4.jpeg';
 import diseño1Img from '../assets/diseño1.jpeg';
 import diseño2Img from '../assets/diseño2.jpeg';
 import diseño3Img from '../assets/diseño3.jpeg';
 import diseño4Img from '../assets/diseño4.jpeg';
+import electricidad1Img from '../assets/electricidad1.jpeg';
+import electricidad2Img from '../assets/electricidad2.jpeg'; // Nueva imagen para Electricidad
+import electricidad3Img from '../assets/electricidad3.jpeg';
 import aipImagenMat from '../assets/AIP_imagen.jpeg';
+import electronica1Img from '../assets/electronica1.jpeg';
+import electronica2Img from '../assets/electronica2.jpeg';
+import electronica3Img from '../assets/electronica3.jpeg';
+import electronica4Img from '../assets/electronica4.jpeg';
+import electronica5Img from '../assets/electronica5.jpeg';
+import alimentos1Img from '../assets/alimentos1.jpeg';
+import alimentos2Img from '../assets/alimentos2.jpeg';
+import alimentos3Img from '../assets/alimentos3.jpeg';
+import alimentos4Img from '../assets/alimentos4.jpeg';
+import ebanisteria1Img from '../assets/ebanisteria1.jpeg';
+import ebanisteria2Img from '../assets/ebanisteria2.jpeg';
+import ebanisteria3Img from '../assets/ebanisteria3.jpeg';
+import ebanisteria4Img from '../assets/ebanisteria4.jpeg';
+import deporte1Img from '../assets/deporte1.jpeg';
+import deporte2Img from '../assets/deporte2.jpeg';
+import deporte3Img from '../assets/deporte3.jpeg';
+import deporte4Img from '../assets/deporte4.jpeg';
+import deporte5Img from '../assets/deporte5.jpeg';
+import deporte6Img from '../assets/deporte6.jpeg';
+import deporte7Img from '../assets/deporte7.jpeg';
+import deporte8Img from '../assets/deporte8.jpeg';
+import deporte9Img from '../assets/deporte9.jpeg';
+import deporte10Img from '../assets/deporte10.jpeg';
+import madre1Img from '../assets/madre1.jpeg';
+import madre2Img from '../assets/madre2.jpeg';
+import madre3Img from '../assets/madre3.jpeg';
+import madre4Img from '../assets/madre4.jpeg';
+import madre5Img from '../assets/madre5.jpeg';
+import confeccion1Img from '../assets/confeccion1.jpeg';
+// import videoDeporte from '../assets/video_deporte.mp4';
 
 export function MainContent({ activeMenu }) {
   const [selectedWorkshop, setSelectedWorkshop] = useState(null); // Para la sección 'talleres'
   const [selectedAIPWorkshop, setSelectedAIPWorkshop] = useState(null); // Para la sección 'A.I.P'
+  const [activeActivity, setActiveActivity] = useState(null); // Para el acordeón de actividades
+
+  const voleyImages = [
+    deporte1Img, deporte2Img, deporte3Img, deporte4Img,
+    deporte5Img, deporte6Img, deporte7Img, deporte8Img
+  ];
+  const futbolImages = [deporte9Img, deporte10Img];
+  const madreImages = [madre1Img, madre2Img, madre3Img, madre4Img, madre5Img];
 
   useEffect(() => {
     setSelectedWorkshop(null);
     setSelectedAIPWorkshop(null);
   }, [activeMenu]);
 
+  // Función para rotar los efectos según el índice de la imagen
+  const getImageEffectClass = (index) => {
+    const effects = ['img-effect-blur', '', 'img-effect-saturated', 'img-effect-grayscaled', 'img-effect-sepia'];
+    return effects[index % effects.length];
+  };
+
   const aipWorkshopImages = {
     'MATEMATICA': [aipImagenMat, null, null], // Assuming only one image for MATEMATICA for now
-    'CORTE Y CONFECCION': [corte1Img, corte2Img, corte3Img],
+    'CORTE Y CONFECCION': [corte1Img, corte2Img, corte3Img, corte4Img],
+    'ELECTRICIDAD': [electricidad1Img, null, null],
     'DISEÑO ARQUITECTONICO': [diseño1Img, diseño2Img, diseño3Img, diseño4Img],
-    // Add other AIP workshops here as needed
+    'ELECTRONICA': [electronica1Img, electronica2Img, electronica3Img, electronica4Img, electronica5Img],
+    'INDUSTRIAS ALIMENTARIAS': [alimentos1Img, alimentos2Img, alimentos3Img, alimentos4Img],
+    'EBANISTERIA': [ebanisteria1Img, ebanisteria2Img, ebanisteria3Img, ebanisteria4Img],
+  };
+
+  // Imágenes específicas para la sección A.I.P
+  const aipImages = {
+    ...aipWorkshopImages,
+    'ELECTRICIDAD': [electricidad1Img, electricidad2Img, electricidad3Img],
+    'CORTE Y CONFECCION': [confeccion1Img],
   };
 
   // Definimos las variables que faltaban para que las galerías funcionen
-  const currentAIPImages = selectedAIPWorkshop ? (aipWorkshopImages[selectedAIPWorkshop] || [null, null, null, null]) : [null, null, null, null];
+  const currentAIPImages = selectedAIPWorkshop ? (aipImages[selectedAIPWorkshop] || [null, null, null, null]) : [null, null, null, null];
   const currentWorkshopImages = selectedWorkshop ? (aipWorkshopImages[selectedWorkshop.toUpperCase()] || [null, null, null, null]) : [null, null, null, null];
 
   const sections = {
@@ -142,18 +200,10 @@ export function MainContent({ activeMenu }) {
         }
       ]
     },
-    galeria: {
-      title: 'Galería',
+    'actividades y galeria': {
+      title: 'Actividades y Galería',
       subtitle: '',
       paragraphs: [],
-    },
-    actividades: {
-      title: 'Actividades',
-      subtitle: 'Aprendizaje activo y participativo',
-      paragraphs: [
-        'Talleres técnicos, proyectos científicos y actividades culturales que fortalecen las competencias del estudiante.',
-        'Experiencias diseñadas para conectar el aula con el mundo real y el mercado laboral.',
-      ],
     },
     boleta: {
       title: 'Boleta de Notas',
@@ -210,22 +260,33 @@ export function MainContent({ activeMenu }) {
             <h2>{selectedAIPWorkshop.toUpperCase()}</h2>
             <div className="detail-separator" style={{ width: '100px', height: '5px', background: 'var(--accent-color)', margin: '0 auto 20px' }}></div>
             <div className="aip-detail-images-grid">
-               <div className="aip-image-card">
-                 {currentAIPImages[0] ? (
-                   <img src={currentAIPImages[0]} alt={`Aula de Innovación - ${selectedAIPWorkshop} 1`} />
-                 ) : (
-                   <span>Espacio para Imagen 1</span>
-                 )}
-               </div>
-               <div className="aip-image-card">
-                 {currentAIPImages[1] ? <img src={currentAIPImages[1]} alt={`Aula de Innovación - ${selectedAIPWorkshop} 2`} /> : <span>Espacio para Imagen 2</span>}
-               </div>
-               <div className="aip-image-card">
-                 {currentAIPImages[2] ? <img src={currentAIPImages[2]} alt={`Aula de Innovación - ${selectedAIPWorkshop} 3`} /> : <span>Espacio para Imagen 3</span>}
-               </div>
-               <div className="aip-image-card">
-                 {currentAIPImages[3] ? <img src={currentAIPImages[3]} alt={`Aula de Innovación - ${selectedAIPWorkshop} 4`} /> : <span>Espacio para Imagen 4</span>}
-               </div>
+              {currentAIPImages.map((img, index) => (
+                <div className="aip-image-card" key={index}>
+                  {img ? (
+                    <>
+                      {selectedAIPWorkshop === 'ELECTRICIDAD' && (
+                        <div className="aip-image-label">
+                          <span className="aip-image-degree">{index === 0 ? '2°' : '1°'}</span>
+                          <span className="aip-image-secundaria">secundaria</span>
+                        </div>
+                      )}
+                      {selectedAIPWorkshop === 'CORTE Y CONFECCION' && (
+                        <div className="aip-image-label">
+                          <span className="aip-image-degree">5°</span>
+                          <span className="aip-image-secundaria">secundaria</span>
+                        </div>
+                      )}
+                      <img 
+                        src={img} 
+                        alt={`Aula de Innovación - ${selectedAIPWorkshop} ${index + 1}`} 
+                        className={getImageEffectClass(index)}
+                      />
+                    </>
+                  ) : (
+                    <span>Espacio para Imagen {index + 1}</span>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -239,22 +300,19 @@ export function MainContent({ activeMenu }) {
             <div className="detail-separator" style={{ width: '100px', height: '5px', background: 'var(--accent-color)', margin: '0 auto 20px' }}></div>
             
             <div className="aip-detail-images-grid">
-               <div className="aip-image-card">
-                 {currentWorkshopImages[0] ? (
-                   <img src={currentWorkshopImages[0]} alt={`Taller - ${selectedWorkshop} 1`} />
-                 ) : (
-                   <span>Espacio para Imagen 1</span>
-                 )}
-               </div>
-               <div className="aip-image-card">
-                 {currentWorkshopImages[1] ? <img src={currentWorkshopImages[1]} alt={`Taller - ${selectedWorkshop} 2`} /> : <span>Espacio para Imagen 2</span>}
-               </div>
-               <div className="aip-image-card">
-                 {currentWorkshopImages[2] ? <img src={currentWorkshopImages[2]} alt={`Taller - ${selectedWorkshop} 3`} /> : <span>Espacio para Imagen 3</span>}
-               </div>
-               <div className="aip-image-card">
-                 {currentWorkshopImages[3] ? <img src={currentWorkshopImages[3]} alt={`Taller - ${selectedWorkshop} 4`} /> : <span>Espacio para Imagen 4</span>}
-               </div>
+              {currentWorkshopImages.map((img, index) => (
+                <div className="aip-image-card" key={index}>
+                  {img ? (
+                    <img 
+                      src={img} 
+                      alt={`Taller - ${selectedWorkshop} ${index + 1}`} 
+                      className={getImageEffectClass(index)}
+                    />
+                  ) : (
+                    <span>Espacio para Imagen {index + 1}</span>
+                  )}
+                </div>
+              ))}
             </div>
             <p style={{ marginTop: '20px', color: 'var(--text-secondary)' }}>Información detallada sobre el taller de {selectedWorkshop}.</p>
           </div>
@@ -309,12 +367,7 @@ export function MainContent({ activeMenu }) {
                     <div key={mIndex} className="team-member">
                       <div className="member-photo-container">
                         {member.image ? (
-                          <div className="split-image-container">
-                            <div className="quadrant quadrant-1" style={{ backgroundImage: `url(${member.image})` }}></div>
-                            <div className="quadrant quadrant-2" style={{ backgroundImage: `url(${member.image})` }}></div>
-                            <div className="quadrant quadrant-3" style={{ backgroundImage: `url(${member.image})` }}></div>
-                            <div className="quadrant quadrant-4" style={{ backgroundImage: `url(${member.image})` }}></div>
-                          </div>
+                          <img src={member.image} alt={member.name} className="member-photo" />
                         ) : (
                           <div className="photo-placeholder">
                             <span>Foto</span>
@@ -335,6 +388,7 @@ export function MainContent({ activeMenu }) {
                         <img 
                           src={item.src} 
                           alt={item.alt} 
+                          className={`content-image-dynamic ${getImageEffectClass(index)}`}
                           style={{ 
                             maxWidth: '100%', 
                             maxHeight: '450px', 
@@ -367,7 +421,11 @@ export function MainContent({ activeMenu }) {
             {activeMenu === 'presentacion' && (
               <div className="hymn-section">
                 <h2 className="hymn-title">HIMNO DEL COLEGIO</h2>
-                <img src={caratulaImg} alt="Himno del Colegio" className="hymn-image" />
+                <img 
+                  src={caratulaImg} 
+                  alt="Himno del Colegio" 
+                  className={`hymn-image ${getImageEffectClass(0)}`} 
+                />
               </div>
             )}
             </>
@@ -407,8 +465,75 @@ export function MainContent({ activeMenu }) {
           )}
         </div>
 
-        {activeMenu === 'galeria' && (
-          <div className="content-media">
+        {activeMenu === 'actividades y galeria' && (
+          <div className="activities-container">
+            {/* BOTÓN 1: DIA DEL DEPORTE */}
+            <div className="activity-item">
+              <button 
+                className={`activity-button ${activeActivity === 'deporte' ? 'active' : ''}`}
+                onClick={() => setActiveActivity(activeActivity === 'deporte' ? null : 'deporte')}
+              >
+                1. DIA DEL DEPORTE
+                <span>{activeActivity === 'deporte' ? '▲' : '▼'}</span>
+              </button>
+              
+              {activeActivity === 'deporte' && (
+                <div className="activity-content">
+                  <h3 className="activity-sub-title">1. Practicando el voley</h3>
+                  <div className="aip-detail-images-grid">
+                    {voleyImages.map((img, index) => (
+                      <div className="aip-image-card" key={index}>
+                        <img 
+                          src={img} 
+                          alt={`Voley - Imagen ${index + 1}`} 
+                          className={getImageEffectClass(index)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <h3 className="activity-sub-title">2. Practicando el futbol</h3>
+                  <div className="aip-detail-images-grid">
+                    {futbolImages.map((img, index) => (
+                      <div className="aip-image-card" key={index}>
+                        <img 
+                          src={img} 
+                          alt={`Futbol - Imagen ${index + 1}`} 
+                          className={getImageEffectClass(index)}
+                        />
+                      </div>
+                    ))}
+                    </div>
+                  </div>
+              )}
+            </div>
+
+            {/* BOTÓN 2: DIA DE LA MADRE */}
+            <div className="activity-item">
+              <button 
+                className={`activity-button ${activeActivity === 'madre' ? 'active' : ''}`}
+                onClick={() => setActiveActivity(activeActivity === 'madre' ? null : 'madre')}
+              >
+                2. DIA DE LA MADRE
+                <span>{activeActivity === 'madre' ? '▲' : '▼'}</span>
+              </button>
+              
+              {activeActivity === 'madre' && (
+                <div className="activity-content">
+                  <div className="aip-detail-images-grid">
+                    {madreImages.map((img, index) => (
+                      <div className="aip-image-card" key={index}>
+                        <img 
+                          src={img} 
+                          alt={`Día de la Madre - Imagen ${index + 1}`} 
+                          className={getImageEffectClass(index)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
